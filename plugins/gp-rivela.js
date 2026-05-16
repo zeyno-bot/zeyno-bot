@@ -1,23 +1,61 @@
-const viewOnceCache = new Map()
+//by Bonzino
+
+import { downloadContentFromMessage } from '@realvare/baileys'
 
 let handler = async (m, { conn }) => {
   try {
     if (!m.quoted) {
-      return m.reply('*⚠️ 𝛥𝐗𝐈𝚶𝐍 𝐒𝐘𝐒𝐓𝐄𝐌: 𝐑𝐢𝐬𝐩𝐨𝐧𝐝𝐢 𝐚 𝐮𝐧 𝐜𝐨𝐧𝐭𝐞𝐧𝐮𝐭𝐨 𝐯𝐢𝐬𝐮𝐚𝐥𝐢𝐳𝐳𝐚𝐛𝐢𝐥𝐞 𝐮𝐧𝐚 𝐬𝐨𝐥𝐚 𝐯𝐨𝐥𝐭𝐚.*')
+      return m.reply('*⚠️ 𝐑𝐢𝐬𝐩𝐨𝐧𝐝𝐢 𝐚 𝐮𝐧 𝐜𝐨𝐧𝐭𝐞𝐧𝐮𝐭𝐨 𝐯𝐢𝐬𝐮𝐚𝐥𝐢𝐳𝐳𝐚𝐛𝐢𝐥𝐞 𝐮𝐧𝐚 𝐬𝐨𝐥𝐚 𝐯𝐨𝐥𝐭𝐚.*')
     }
 
     if (!m.quoted?.viewOnce) {
-      return m.reply('*⚠️ 𝛥𝐗𝐈𝚶𝐍 𝐒𝐘𝐒𝐓𝐄𝐌: 𝐐𝐮𝐞𝐬𝐭𝐨 𝐧𝐨𝐧 𝐞̀ 𝐮𝐧 𝐜𝐨𝐧𝐭𝐞𝐧𝐮𝐭𝐨 𝐯𝐢𝐬𝐮𝐚𝐥𝐢𝐳𝐳𝐚𝐛𝐢𝐥𝐞 𝐮𝐧𝐚 𝐬𝐨𝐥𝐚 𝐯𝐨𝐥𝐭𝐚.*')
+      return m.reply('*⚠️ 𝐐𝐮𝐞𝐬𝐭𝐨 𝐧𝐨𝐧 𝐞̀ 𝐮𝐧 𝐜𝐨𝐧𝐭𝐞𝐧𝐮𝐭𝐨 𝐯𝐢𝐬𝐮𝐚𝐥𝐢𝐳𝐳𝐚𝐛𝐢𝐥𝐞 𝐮𝐧𝐚 𝐬𝐨𝐥𝐚 𝐯𝐨𝐥𝐭𝐚.*')
     }
 
-    const msgId = m.quoted.id || m.quoted.key?.id
-    const cachedData = viewOnceCache.get(msgId)
+    const mtype = m.quoted.mtype
+    let buffer
 
-    if (!cachedData) {
-      return m.reply('*❌ 𝛥𝐗𝐈𝚶𝐍 𝐒𝐘𝐒𝐓𝐄𝐌: Non ho trovato questo file in memoria. Potrebbe essere stato inviato prima del mio ingresso o del mio riavvio.*')
+    const downloadFromStream = async stream => {
+      let buffer = Buffer.from([])
+      for await (const chunk of stream) {
+        buffer = Buffer.concat([buffer, chunk])
+      }
+      return buffer
     }
 
-    const { buffer, mtype, caption } = cachedData
+    if (/videoMessage/.test(mtype)) {
+      try {
+        const stream = await downloadContentFromMessage(m.quoted.videoMessage, 'video')
+        buffer = await downloadFromStream(stream)
+      } catch (e) {
+        console.warn('Fallback download video:', e.message)
+        buffer = await m.quoted.download()
+      }
+    } else if (/imageMessage/.test(mtype)) {
+      try {
+        const stream = await downloadContentFromMessage(m.quoted.imageMessage, 'image')
+        buffer = await downloadFromStream(stream)
+      } catch (e) {
+        console.warn('Fallback download immagine:', e.message)
+        buffer = await m.quoted.download()
+      }
+    } else if (/audioMessage/.test(mtype)) {
+      try {
+        const stream = await downloadContentFromMessage(m.quoted.audioMessage, 'audio')
+        buffer = await downloadFromStream(stream)
+      } catch (e) {
+        console.warn('Fallback download audio:', e.message)
+        buffer = await m.quoted.download()
+      }
+    } else {
+      return m.reply('*❌ 𝐅𝐨𝐫𝐦𝐚𝐭𝐨 𝐧𝐨𝐧 𝐬𝐮𝐩𝐩𝐨𝐫𝐭𝐚𝐭𝐨.*')
+    }
+
+    if (!buffer || !buffer.length) {
+      return m.reply('*❌ 𝐈𝐦𝐩𝐨𝐬𝐬𝐢𝐛𝐢𝐥𝐞 𝐬𝐜𝐚𝐫𝐢𝐜𝐚𝐫𝐞 𝐢𝐥 𝐜𝐨𝐧𝐭𝐞𝐧𝐮𝐭𝐨.*')
+    }
+
+    const caption = m.quoted?.caption || ''
 
     if (/videoMessage/.test(mtype)) {
       await conn.sendFile(m.chat, buffer, 'video.mp4', caption, m)
@@ -26,45 +64,18 @@ let handler = async (m, { conn }) => {
     } else if (/audioMessage/.test(mtype)) {
       await conn.sendFile(m.chat, buffer, 'audio.mp3', '', m, false, {
         mimetype: 'audio/mp4',
-        ptt: cachedData.ptt || false
+        ptt: m.quoted.ptt || false
       })
     }
 
   } catch (e) {
-    console.error(e)
-    return m.reply('*❌ 𝛥𝐗𝐈𝚶𝐍 𝐒𝐘𝐒𝐓𝐄𝐌: Errore durante il recupero dei dati.*')
+    console.error('Errore nel rivelare view once:', e)
+    throw new Error(`*❌ 𝐄𝐫𝐫𝐨𝐫𝐞*\n\n${e.message || e}`)
   }
-}
-
-handler.before = async (m, { conn }) => {
-  if (!m.isGroup) return false
-  
-  const isViewOnce = m.viewOnce || m.message?.viewOnceMessageV2 || m.message?.viewOnceMessage || m.message?.viewOnceMessageV2Extension
-  if (!isViewOnce) return false
-
-  try {
-    const msgId = m.id || m.key?.id
-    if (viewOnceCache.has(msgId)) return false
-
-    const mtype = m.mtype || Object.keys(m.message)[0]
-    let buffer = await m.download().catch(() => null)
-
-    if (buffer && buffer.length) {
-      viewOnceCache.set(msgId, {
-        buffer,
-        mtype,
-        caption: m.caption || '',
-        ptt: m.message?.[mtype]?.ptt || false
-      })
-    }
-  } catch (e) {
-    console.error('Errore nel salvataggio preventivo ViewOnce:', e)
-  }
-  return false
 }
 
 handler.help = ['rivela']
-handler.tags = ['group']
+handler.tags = ['gruppo']
 handler.command = ['readviewonce', 'rivela', 'viewonce']
 handler.group = true
 handler.admin = true
