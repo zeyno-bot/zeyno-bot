@@ -10,3 +10,5 @@ private.js
 plugins/owner-purge.js
 private.js
 plugins/gp-ia.js
+plugins/owner-listaia.js
+plugins/owner-logs.js

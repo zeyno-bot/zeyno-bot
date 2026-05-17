@@ -42,11 +42,31 @@ const DisconnectReason = {
     forbidden: 403,
     unavailableService: 503
 };
-const { useMultiFileAuthState, makeCacheableSignalKeyStore, Browsers, jidNormalizedUser, makeInMemoryStore } = await import('@realvare/baileys');
+const { useMultiFileAuthState, makeCacheableSignalKeyStore, Browsers, jidNormalizedUser, makeInMemoryStore, generateWAMessageFromContent, proto } = await import('@realvare/baileys');
 const { chain } = lodash;
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000;
 protoType();
 serialize();
+
+global.sendCopy=async(conn,m,{text='',copy='',button='📋 𝐂𝐨𝐩𝐢𝐚'})=>{
+const msg=generateWAMessageFromContent(m.chat,{
+viewOnceMessage:{message:{
+messageContextInfo:{deviceListMetadata:{},deviceListMetadataVersion:2},
+interactiveMessage:proto.Message.InteractiveMessage.create({
+body:proto.Message.InteractiveMessage.Body.create({text}),
+footer:proto.Message.InteractiveMessage.Footer.create({text:'\n𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓'}),
+nativeFlowMessage:proto.Message.InteractiveMessage.NativeFlowMessage.create({
+buttons:[{
+name:'cta_copy',
+buttonParamsJson:JSON.stringify({display_text:button,copy_code:copy})
+}]
+})
+})
+}}
+},{quoted:m})
+await conn.relayMessage(m.chat,msg.message,{messageId:msg.key.id})
+}
+
 global.isLogoPrinted = false;
 global.qrGenerated = false;
 global.connectionMessagesPrinted = {};
