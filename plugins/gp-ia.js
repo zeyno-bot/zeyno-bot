@@ -224,7 +224,7 @@ async function call(messages) {
 
   try {
 
-    return await callOpenRouter(messages)
+    return await callOpenrouter(messages)
 
   } catch (e) {
 
