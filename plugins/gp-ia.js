@@ -17,7 +17,7 @@ const utentiRiconosciuti = {
 const config = {
   name: '𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓',
   model: 'gpt-4.1-mini',
-  fallbackModel: 'openai',
+  fallbackModel: 'openrouter',
   historyLimit: 15,
   maxConversazioni: 3,
   openaiTimeout: 25000,
@@ -98,19 +98,19 @@ function timeoutPromise(ms, label) {
 async function callOpenAI(messages) {
 
   const apiKey =
-    process.env.OPENAI_API_KEY ||
-    global.OPENAI_API_KEY ||
-    global.openaiApiKey
+    process.env.OPENROUTER_API_KEY ||
+    global.OPENROUTER_API_KEY ||
+    global.openrouterApiKey
 
   if (!apiKey) {
-    throw new Error('OPENAI_KEY_ASSENTE')
+    throw new Error('OPENROUTER_KEY_ASSENTE')
   }
 
-  console.log('[AI] Chiamo OpenAI...')
+  console.log('[AI] Chiamo OpenRouter...')
 
-  const { default: OpenAI } = await import('openai')
+  const { default: OpenRouter } = await import('openrouter')
 
-  const openai = new OpenAI({
+  const openai = new OpenRouter({
     apiKey,
     timeout: config.openaiTimeout,
     maxRetries: 0
@@ -129,7 +129,7 @@ async function callOpenAI(messages) {
     request,
     timeoutPromise(
       config.openaiTimeout,
-      'OPENAI_TIMEOUT'
+      'OPENROUTER_TIMEOUT'
     )
   ])
 
@@ -137,7 +137,7 @@ async function callOpenAI(messages) {
   res.choices?.[0]?.message?.content?.trim()
 
 if (!out) {
-  throw new Error('OPENAI_RISPOSTA_VUOTA')
+  throw new Error('OPENROUTER_RISPOSTA_VUOTA')
 }
 
 const usage = {
@@ -153,14 +153,14 @@ console.log('[AI USAGE]', usage)
 salvaCostoAI(
   usage,
   config.model,
-  'openai'
+  'openrouter'
 )
 
   if (!out) {
-    throw new Error('OPENAI_RISPOSTA_VUOTA')
+    throw new Error('OPENROUTER_RISPOSTA_VUOTA')
   }
 
-  console.log('[AI] Risposta OpenAI ricevuta')
+  console.log('[AI] Risposta OpenROUTER ricevuta')
 
   return out
 }
@@ -224,7 +224,7 @@ async function call(messages) {
 
   try {
 
-    return await callOpenAI(messages)
+    return await callOpenRouter(messages)
 
   } catch (e) {
 
