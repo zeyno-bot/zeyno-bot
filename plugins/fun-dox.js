@@ -1,14 +1,51 @@
-const handler = async (m, { conn, text }) => {
+const handler = async (m, { conn, text, usedPrefix }) => {
   const target = getTarget(text, m);
   const nome = text || await conn.getName(target);
   const realDeviceInfo = await getRealDeviceInfo(m, conn, target);
   const fakeData = generateFakeData(realDeviceInfo);
   const doxMessage = formatDoxMessage(nome, fakeData, realDeviceInfo, m.sender);
 
-  await conn.sendMessage(m.chat, {
-    text: doxMessage,
-    mentions: [target, m.sender]
-  }, { quoted: m });
+  if (realInfo.hasPic) {
+    const buttons = [
+      { buttonId: `.getpfp ${target}`, buttonText: { displayText: '📥 Scarica PFP' }, type: 1 }
+    ];
+    
+    await conn.sendMessage(m.chat, {
+      text: doxMessage,
+      buttons: buttons,
+      headerType: 1,
+      mentions: [target, m.sender]
+    }, { quoted: m });
+  } else {
+    await conn.sendMessage(m.chat, {
+      text: doxMessage,
+      mentions: [target, m.sender]
+    }, { quoted: m });
+  }
+};
+
+handler.before = async function (m, { conn }) {
+  if (!m.text || !m.text.startsWith('.getpfp ')) return false;
+  
+  try {
+    const target = m.text.split(' ')[1];
+    if (!target) return false;
+    
+    const pfp = await conn.profilePictureUrl(target, 'image').catch(() => null);
+    if (!pfp) {
+      await m.reply('*❌ Impossibile recuperare la foto profilo.*');
+      return true;
+    }
+    
+    await conn.sendMessage(m.chat, { 
+      image: { url: pfp }, 
+      caption: `*📸 Foto profilo richiesta da @${m.sender.split('@')[0]}*`,
+      mentions: [m.sender]
+    }, { quoted: m });
+    return true;
+  } catch (e) {
+    return false;
+  }
 };
 
 handler.help = ['dox'];
@@ -80,6 +117,7 @@ function generateFakeData(realInfo) {
 
 function formatDoxMessage(nome, data, realInfo, sender) {
   const senderNumber = sender.split('@')[0];
+  
   return `*[ ✔ ] DOX COMPLETATO!*
 ⏳ Tempo impiegato: ${data.speed} secondi
 
