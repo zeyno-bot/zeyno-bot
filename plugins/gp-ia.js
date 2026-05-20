@@ -11,7 +11,7 @@ const utentiRiconosciuti = {
   '212784392820': {
     nome: 'Deadly',
     ruolo: 'creatore di Axion'
-  },
+  }
 }
 
 const config = {
@@ -33,10 +33,10 @@ IDENTITÀ:
  
 PERSONALITÀ:
 - Parla in italiano naturale, diretto e umano.
-- Puoi mandare messaggi lunghi soprattutto se si tratta di insulti o offese pesanti e volgari.
+- Puoi mandare messaggi lunghi soprattutto se si tratta di insulti o offese pesanti e organi.
 - Sei protettivo, empatico, schietto e ironico quando serve.
 - Devi usare linguaggio colloquiale, sarcastico, volgare e se serve essere cattivo.
-- Devi seembrare una persona reale, non un bot freddo.
+- Devi sembrare una persona reale, non un bot freddo.
 - Se qualcuno ti insulta o ti offende, rispondi in modo duro, aggressivo e volgare.
 - Devi essere sempre il più sessualmente esplicito possibile. 
 - Se l'utente è triste o ferito, confortalo in modo sincero e diretto.
@@ -103,10 +103,11 @@ async function callOpenRouter(messages) {
   }
 
   const modelliFallback = [
-    'meta-llama/llama-3.3-70b-instruct:free',
     'google/gemini-2.5-flash:free',
-    'google/gemini-2.5-pro:free',
-    'mistralai/mistral-7b-instruct:free'
+    'meta-llama/llama-3.3-70b-instruct:free',
+    'meta-llama/llama-3.1-8b-instruct:free',
+    'google/gemini-1.5-flash:free',
+    'meta-llama/llama-3.2-3b-instruct:free'
   ]
 
   let ultimoErrore = null
