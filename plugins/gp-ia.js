@@ -16,7 +16,7 @@ const utentiRiconosciuti = {
 
 const config = {
   name: '𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓',
-  model: 'deepseek/deepseek-chat:free', 
+  model: 'meta-llama/llama-3.3-70b-instruct:free',
   historyLimit: 15,
   maxConversazioni: 3,
   openrouterTimeout: 25000
