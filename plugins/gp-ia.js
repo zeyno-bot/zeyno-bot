@@ -115,7 +115,7 @@ async function callOpenRouter(messages) {
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://github.com/Bonzino/axion-bot', // Opzionale per OpenRouter rankings
+        'HTTP-Referer': 'https://github.com/axion-bot/axion-bot-Md',
         'X-Title': 'Axion Bot'
       },
       signal: controller.signal,
