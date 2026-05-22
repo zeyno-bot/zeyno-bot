@@ -31,7 +31,7 @@ const buttons = [
 ]
 
     await conn.sendMessage(message.chat, {
-        image: { url: './media/main-menu.jpeg' },
+        image: { url: './media/image-27.jpg' },
         caption: menuBody,
         footer: 'sᴇʟᴇᴢɪᴏɴᴀ ᴜɴ ᴍᴏᴅᴜʟᴏ ᴅᴀʟʟ\'ɪɴᴛᴇʀғᴀᴄᴄɪᴀ',
         buttons: buttons,
