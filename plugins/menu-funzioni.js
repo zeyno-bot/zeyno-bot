@@ -35,7 +35,7 @@ let handler = async (m, { conn, usedPrefix }) => {
   }
 
   const text = `╭━━━━━━━⚙️━━━━━━━╮
-*✦ 𝐀𝐗𝐈𝐎𝐍 𝐅𝐔𝐍𝐙𝐈𝐎𝐍𝐈 ✦*
+*✦ 𝛧𝚵𝐘𝐍𝐎 𝐅𝐔𝐍𝐙𝐈𝐎𝐍𝐈 ✦*
 ╰━━━━━━━⚙️━━━━━━━╯
 
 *🛡️ 𝐒𝐢𝐜𝐮𝐫𝐞𝐳𝐳𝐚*
@@ -76,7 +76,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     m.chat,
     {
       text,
-      footer: '𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓',
+      footer: '𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓',
       buttons: [
         {
           buttonId: `${usedPrefix}menu`,
