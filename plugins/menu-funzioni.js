@@ -92,7 +92,7 @@ let handler = async (m, { conn, usedPrefix }) => {
         ...(thumbnail
           ? {
               externalAdReply: {
-                title: '𝐀𝐗𝐈𝐎𝐍 𝐅𝐔𝐍𝐙𝐈𝐎𝐍𝐈',
+                title: '𝛧𝚵𝐘𝐍𝐎 𝐅𝐔𝐍𝐙𝐈𝐎𝐍𝐈',
                 body: 'Stato moduli del sistema',
                 thumbnail,
                 mediaType: 1,
