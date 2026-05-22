@@ -199,5 +199,5 @@ function formatDoxMessage(nome, data, realInfo, sender) {
 
 *🕵️‍♂️ DOX BY:* @${senderNumber}
 
-> *𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓*`;
+> *𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓*`;
 }
