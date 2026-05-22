@@ -22,10 +22,10 @@ const moduleCache =
   })
 
 global.owner = [
-  ['212784392820', '𝕯𝖊ⱥ𝖉𝖑𝐲', true],
-  ['393780560229', 'Luxifer', true],
-  ['639350468907', 'bonzino', true],
-  ['393780087063', 'bonzino²', true],
+  ['393501989497', 'ꪶ𝑬𝛮𝜞𝐲ꫂ | ꪶ𝘎͢ꫂ', true],
+  ['212693877842', 'Medalis', true],
+  ['77787623522', 'Ksav', true],
+  ['254790385731', 'Zak', true],
 ]
 
 global.mods = [
@@ -38,13 +38,13 @@ global.prems = [
   'xxxxxxxxxx'
 ]
 
-global.nomebot  = '𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓'
-global.nomepack = '𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓'
+global.nomebot  = '𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓'
+global.nomepack = '𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓'
 
-global.wm       = '𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓'
+global.wm       = '𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓'
 
-global.autore   = '𝕯𝖊ⱥ𝖉𝖑𝐲'
-global.dev      = '𝕯𝖊ⱥ𝖉𝖑𝐲'
+global.autore   = 'ꪶ𝑬𝛮𝜞𝐲ꫂ | ꪶ𝘎͢ꫂ'
+global.dev      = 'ꪶ𝑬𝛮𝜞𝐲ꫂ | ꪶ𝘎͢ꫂ'
 
 global.versione = pkg.version
 
@@ -55,10 +55,10 @@ global.errore =
   '⚠️ *[SYSTEM ERROR]* Usa `.segnala` per inviare il log allo staff.'
 
 global.repobot =
-  'https://github.com/axion-bot/axion-bot'
+  'https://github.com/zeyno-bot/zeyno-bot'
 
 global.canale =
-  'https://whatsapp.com/channel/0029Vb8MQ3U1CYoMEtU1832d'
+  'https://whatsapp.com/channel/0029VbBsqvyF1YlXIC2zUh1N'
 
 global.cheerio = cheerio
 global.fs      = fs
