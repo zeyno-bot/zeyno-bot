@@ -5,7 +5,7 @@ const handler = async (message, { conn, usedPrefix = '.' }) => {
   const totalUsers = Object.keys(global.db?.data?.users || {}).length
 
   const menuBody = `
-『 𝚫𝐗𝐈𝐎𝐍 • 𝐌𝐄𝐍𝐔 𝐔𝐓𝐄𝐍𝐓𝐄 』
+『 𝛧𝚵𝐘𝐍𝐎 • 𝐌𝐄𝐍𝐔 𝐔𝐓𝐄𝐍𝐓𝐄 』
 ╼━━━━━━━━━━━━━━╾
   ◈ *ᴜsᴇʀ:* @${userId.split('@')[0]}
   ◈ *ᴜᴘᴛɪᴍᴇ:* ${uptimeStr}
@@ -120,7 +120,7 @@ const handler = async (message, { conn, usedPrefix = '.' }) => {
   await conn.sendMessage(message.chat, {
     text: menuBody,
     mentions: [userId],
-    footer: '> *𝛥𝐗𝐈𝐎𝐍 𝚩𝚯𝐓*',
+    footer: '> *𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓*',
     buttons: [
       {
         buttonId: `${usedPrefix}menu`,
