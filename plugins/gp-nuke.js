@@ -12,12 +12,12 @@ let handler = async (m, { conn, command }) => {
         chat.oldDesc = groupMetadata.desc || "Nessuna descrizione"
         global.db.data.chats[m.chat] = chat
 
-        let newName = `${chat.oldName} | 𝐒𝐕𝐓 𝐁𝐘 𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓`
+        let newName = `${chat.oldName} | 𝐒𝐕𝐓 𝐁𝐘 𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓`
         await conn.groupUpdateSubject(m.chat, newName)
 
         await conn.groupUpdateDescription(
             m.chat,
-            "𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓 𝐃𝐎𝐌𝐈𝐍𝐀 𝐒𝐔𝐈 𝐕𝐎𝐒𝐓𝐑𝐈 𝐆𝐑𝐔𝐏𝐏𝐈 🛡️"
+            "𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓 𝐃𝐎𝐌𝐈𝐍𝐀 𝐒𝐔𝐈 𝐕𝐎𝐒𝐓𝐑𝐈 𝐆𝐑𝐔𝐏𝐏𝐈 🛡️"
         )
 
         await conn.groupSettingUpdate(m.chat, 'announcement')
