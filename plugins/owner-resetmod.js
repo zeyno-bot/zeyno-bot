@@ -37,7 +37,7 @@ const handler = async (m, { conn }) => {
 *𝐔𝐭𝐞𝐧𝐭𝐢 𝐫𝐢𝐦𝐨𝐬𝐬𝐢:*
 ${list}
 
-> *𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓*`
+> *𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓*`
 
   await conn.sendMessage(
     m.chat,
