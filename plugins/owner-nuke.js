@@ -13,7 +13,8 @@ let handler = async (m, { conn, participants, isBotAdmin }) => {
         let metadata = await conn.groupMetadata(m.chat);
         let oldName = metadata.subject;
         let newName = `${oldName} | 𝑺𝑽𝑻 𝑩𝒀  𝚯𝚩𝚵𝐘𝐑𝚫`;
-
+    
+     // 🔹 CAMBIO DESCRIZIONE GRUPPO 
         await conn.groupUpdateDescription(
             m.chat,
             "vi siete fatti fottere da endy"
