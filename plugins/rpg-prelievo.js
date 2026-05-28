@@ -2,7 +2,7 @@
 
 global.db.data.prelievoSessioni ??= {}
 
-const footer = '𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓'
+const footer = '𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓'
 
 const box = (emoji, title, body, showFooter = true) => `╭━━━━━━━${emoji}━━━━━━━╮
 *✦ ${title} ✦*
