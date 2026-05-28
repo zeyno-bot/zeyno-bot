@@ -12,7 +12,7 @@ let handler = async (m, { conn, text }) => {
 
     return conn.reply(
       m.chat,
-      '*𝐑𝐢𝐬𝐩𝐨𝐧𝐝𝐢 𝐚𝐝 𝐮𝐧𝐨 𝐬𝐭𝐢𝐜𝐤𝐞𝐫 𝐩𝐞𝐫 𝐩𝐞𝐫𝐬𝐨𝐧𝐚𝐥𝐢𝐳𝐳𝐚𝐫𝐥𝐨.*\n\n> *𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓*',
+      '*𝐑𝐢𝐬𝐩𝐨𝐧𝐝𝐢 𝐚𝐝 𝐮𝐧𝐨 𝐬𝐭𝐢𝐜𝐤𝐞𝐫 𝐩𝐞𝐫 𝐩𝐞𝐫𝐬𝐨𝐧𝐚𝐥𝐢𝐳𝐳𝐚𝐫𝐥𝐨.*\n\n> *𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓*',
       m
     )
   }
@@ -30,7 +30,7 @@ let handler = async (m, { conn, text }) => {
 
     if (!text) {
       const name = await conn.getName(m.sender)
-      text = `${name}|𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓`
+      text = `${name}|𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓`
     }
 
     let [packname, ...author] = text.split('|')
@@ -49,7 +49,7 @@ let handler = async (m, { conn, text }) => {
 
       return conn.reply(
         m.chat,
-        '*𝐑𝐢𝐬𝐩𝐨𝐧𝐝𝐢 𝐚𝐝 𝐮𝐧𝐨 𝐬𝐭𝐢𝐜𝐤𝐞𝐫.*\n\n> *𝛥𝐗𝐈𝚶𝐍 𝚩𝚯𝐓*',
+        '*𝐑𝐢𝐬𝐩𝐨𝐧𝐝𝐢 𝐚𝐝 𝐮𝐧𝐨 𝐬𝐭𝐢𝐜𝐤𝐞𝐫.*\n\n> *𝛧𝚵𝐘𝐍𝐎 𝚩𝚯𝐓*',
         m
       )
     }
